@@ -13,10 +13,16 @@ export default function DetailPage(props) {
   // const content = props.content;
   let {id} = useParams();
   const [alert, setAlert] = useState(true);
+  const [txt, setTxt] = useState();
+  const [warning, setWarning] = useState(false);
   
   useEffect(()=> {
-    setTimeout(()=>{setAlert(false)}, 2000)
-  }, [])
+    if(isNaN(txt) == true){
+      setWarning(true);
+    }else {
+      setWarning(false);
+    }
+  }, [txt])
   return (
     <>
       <div className="container">
@@ -35,6 +41,9 @@ export default function DetailPage(props) {
             <p>{props.content[id].content}</p>
             <p>{props.content[id].price}원</p>
             <button className="btn btn-danger">주문하기</button>
+            {warning == true? <p>숫자만 입력하세요</p> : null}
+            <input type="text" onChange={(e)=>{setTxt(e.target.value)}} placeholder="배송 희망 시간"></input>
+            
           </div>
         </div>
       </div>
